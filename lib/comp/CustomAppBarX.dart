@@ -5,7 +5,7 @@ class CustomAppBarX extends StatefulWidget implements
     PreferredSizeWidget {
   CustomAppBarX({ super.key,
     required this.accionx
-  }) : preferredSize = Size.fromHeight(50.0);
+  }) : preferredSize = const Size.fromHeight(50.0);
 
   Function accionx;
 
@@ -52,13 +52,13 @@ class _CustomAppBarState extends State<CustomAppBarX>{
                 AppTheme.themeDataLight=ThemeData(useMaterial3: AppTheme.useMaterial3,
                     colorScheme: AppTheme.colorOptionsShemeL[AppTheme.colorSelected]
                 );
-                AppTheme.colorMenu=Color(0xFF3A5160);
-                if(AppTheme.useMaterial3==false){AppTheme.colorMenu=Color(0xFFFEFEFE);}
+                AppTheme.colorMenu=const Color(0xFF3A5160);
+                if(AppTheme.useMaterial3==false){AppTheme.colorMenu=const Color(0xFFFEFEFE);}
               }else{
                 AppTheme.themeDataDark=ThemeData(useMaterial3: AppTheme.useMaterial3,
                     colorScheme: AppTheme.colorOptionsShemeD[AppTheme.colorSelected]
                 );
-                AppTheme.colorMenu=Color(0xFFFEFEFE);
+                AppTheme.colorMenu=const Color(0xFFFEFEFE);
               }
 
 
@@ -80,13 +80,13 @@ class _CustomAppBarState extends State<CustomAppBarX>{
                 AppTheme.themeDataLight=ThemeData(useMaterial3: AppTheme.useMaterial3,
                     colorScheme: AppTheme.colorOptionsShemeL[AppTheme.colorSelected]
                 );
-                AppTheme.colorMenu=Color(0xFF3A5160);
-                if(AppTheme.useMaterial3==false){AppTheme.colorMenu=Color(0xFFFEFEFE);}
+                AppTheme.colorMenu=const Color(0xFF3A5160);
+                if(AppTheme.useMaterial3==false){AppTheme.colorMenu=const Color(0xFFFEFEFE);}
               }else{
                 AppTheme.themeDataDark=ThemeData(useMaterial3: AppTheme.useMaterial3,
                     colorScheme: AppTheme.colorOptionsShemeD[AppTheme.colorSelected]
                 );
-                AppTheme.colorMenu=Color(0xFFFEFEFE);
+                AppTheme.colorMenu=const Color(0xFFFEFEFE);
               }
 
             });
@@ -132,13 +132,13 @@ class _CustomAppBarState extends State<CustomAppBarX>{
                 AppTheme.themeDataLight=ThemeData(useMaterial3: AppTheme.useMaterial3,
                     colorScheme: AppTheme.colorOptionsShemeL[AppTheme.colorSelected]
                 );
-                AppTheme.colorMenu=Color(0xFF3A5160);
-                if(AppTheme.useMaterial3==false){AppTheme.colorMenu=Color(0xFFFEFEFE);}
+                AppTheme.colorMenu=const Color(0xFF3A5160);
+                if(AppTheme.useMaterial3==false){AppTheme.colorMenu=const Color(0xFFFEFEFE);}
               }else{
                 AppTheme.themeDataDark=ThemeData(useMaterial3: AppTheme.useMaterial3,
                     colorScheme: AppTheme.colorOptionsShemeD[AppTheme.colorSelected]
                 );
-                AppTheme.colorMenu=Color(0xFFFEFEFE);
+                AppTheme.colorMenu=const Color(0xFFFEFEFE);
               }
             });
             accionx();

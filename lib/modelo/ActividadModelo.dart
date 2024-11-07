@@ -116,26 +116,24 @@ class ActividadModelo {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['nombreActividad'] = nombreActividad;
-    _data['fecha'] = fecha;
-    _data['horai'] = horai;
-    _data['minToler'] = minToler;
-    _data['latitud'] = latitud;
-    _data['longitud'] = longitud;
-    _data['estado'] = estado;
-    _data['evaluar'] = evaluar;
-    _data['userCreate'] = userCreate;
-    _data['mater'] = mater;
-    _data['validInsc'] = validInsc;
-    _data['asisSubact'] = asisSubact;
-    _data['entsal'] = entsal;
-    _data['offlinex'] = offlinex;
-    if (this.asistenciaxs != null) {
-      _data['asistenciaxs'] = this.asistenciaxs.map((v) => v.toJson()).toList();
-    }
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['nombreActividad'] = nombreActividad;
+    data['fecha'] = fecha;
+    data['horai'] = horai;
+    data['minToler'] = minToler;
+    data['latitud'] = latitud;
+    data['longitud'] = longitud;
+    data['estado'] = estado;
+    data['evaluar'] = evaluar;
+    data['userCreate'] = userCreate;
+    data['mater'] = mater;
+    data['validInsc'] = validInsc;
+    data['asisSubact'] = asisSubact;
+    data['entsal'] = entsal;
+    data['offlinex'] = offlinex;
+    data['asistenciaxs'] = asistenciaxs.map((v) => v.toJson()).toList();
+      return data;
   }
 }
 
@@ -188,18 +186,18 @@ class AsistenciaxRModelo {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     //final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['fecha'] = this.fecha;
-    data['horaReg'] = this.horaReg;
-    data['latituda'] = this.latituda;
-    data['longituda'] = this.longituda;
-    data['tipo'] = this.tipo;
-    data['calificacion'] = this.calificacion;
-    data['cui'] = this.cui;
-    data['tipoCui'] = this.tipoCui;
-    data['entsal'] = this.entsal;
-    data['subactasisId'] = this.subactasisId;
-    data['offlinex'] = this.offlinex;
+    data['id'] = id;
+    data['fecha'] = fecha;
+    data['horaReg'] = horaReg;
+    data['latituda'] = latituda;
+    data['longituda'] = longituda;
+    data['tipo'] = tipo;
+    data['calificacion'] = calificacion;
+    data['cui'] = cui;
+    data['tipoCui'] = tipoCui;
+    data['entsal'] = entsal;
+    data['subactasisId'] = subactasisId;
+    data['offlinex'] = offlinex;
     return data;
   }
 

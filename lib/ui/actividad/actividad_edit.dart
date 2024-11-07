@@ -1,10 +1,8 @@
 import 'package:asistencia_upeu/apis/actividad_api.dart';
 import 'package:asistencia_upeu/comp/DropDownFormField.dart';
 import 'package:asistencia_upeu/modelo/ActividadModelo.dart';
-import 'package:asistencia_upeu/theme/AppTheme.dart';
 import 'package:asistencia_upeu/util/TokenUtil.dart';
 import 'package:checkbox_grouped/checkbox_grouped.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
@@ -14,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ActividadFormEdit extends StatefulWidget {
   ActividadModelo modelA;
 
-  ActividadFormEdit({required this.modelA}):super();
+  ActividadFormEdit({super.key, required this.modelA});
 
   @override
   _ActividadFormEditState createState() => _ActividadFormEditState(modelA: modelA);
@@ -24,14 +22,14 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
   ActividadModelo modelA;
   _ActividadFormEditState({required this.modelA}):super();
 
-  late int _periodoId=0;
+  late final int _periodoId=0;
   late String _nombreActividad="";
 
-  TextEditingController _fecha = new TextEditingController();
+  final TextEditingController _fecha = TextEditingController();
   DateTime? selectedDate;
 
-  TextEditingController _horai = new TextEditingController();
-  TextEditingController _minToler = new TextEditingController();
+  final TextEditingController _horai = TextEditingController();
+  final TextEditingController _minToler = TextEditingController();
   TimeOfDay? selectedTime;
 
   late String _estado="D";
@@ -42,7 +40,7 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
   late String _evaluar="NO";
 
   late String _userCreate;
-  var _data = [];
+  final _data = [];
 
   List<Map<String, String>> lista = [
     {'value': 'A', 'display': 'Activo'},
@@ -78,21 +76,21 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
 
 
 
-  void capturaNombreAct(valor){ this._nombreActividad=valor;}
+  void capturaNombreAct(valor){ _nombreActividad=valor;}
 
-  void capturaFecha(valor){ this._fecha.text=valor;}
-  void capturaHorai(valor){ this._horai.text=valor;}
-  void capturaMinToler(valor){ this._minToler.text=valor;}
-  void capturaEstado(valor){ this._estado=valor;}
-  void capturaEvaluar(valor){ this._evaluar=valor;}
-  TextEditingController capMinToler(){return this._minToler;}
-  TextEditingController capHorai(){return this._horai;}
+  void capturaFecha(valor){ _fecha.text=valor;}
+  void capturaHorai(valor){ _horai.text=valor;}
+  void capturaMinToler(valor){ _minToler.text=valor;}
+  void capturaEstado(valor){ _estado=valor;}
+  void capturaEvaluar(valor){ _evaluar=valor;}
+  TextEditingController capMinToler(){return _minToler;}
+  TextEditingController capHorai(){return _horai;}
 
-  void capturaMateriales(valor){ this._materiales=valor;}
-  void capturaValidarIns(valor){ this._validarInsc=valor;}
-  void capturaAsisSubAct(valor){ this._asisSubAct=valor;}
-  void capturaEntSal(valor){ this._entSal=valor;}
-  void capturaOfflinex(valor){ this._offlienex=valor;}
+  void capturaMateriales(valor){ _materiales=valor;}
+  void capturaValidarIns(valor){ _validarInsc=valor;}
+  void capturaAsisSubAct(valor){ _asisSubAct=valor;}
+  void capturaEntSal(valor){ _entSal=valor;}
+  void capturaOfflinex(valor){ _offlienex=valor;}
 
 
 
@@ -108,7 +106,7 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
       ),
       body: SingleChildScrollView(
           child: Container(
-              margin: EdgeInsets.all(24),
+              margin: const EdgeInsets.all(24),
               //color: AppTheme.nearlyWhite,
               child: Form(
                 key: _formKey,
@@ -136,7 +134,7 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
                               onPressed: () {
                                 Navigator.pop(context, true);
                               },
-                              child: Text('Cancelar')),
+                              child: const Text('Cancelar')),
                           ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
@@ -146,7 +144,7 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
                                   ),
                                 );
                                 _formKey.currentState!.save();
-                                ActividadModelo mp = new ActividadModelo.unlaunched();
+                                ActividadModelo mp = ActividadModelo.unlaunched();
                                 mp.nombreActividad = _nombreActividad;
                                 mp.fecha=DateFormat('yyyy-MM-dd').format(DateTime.parse(_fecha.value.text));
                                 mp.horai=_horai.value.text;
@@ -165,23 +163,21 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
                                 mp.offlinex=_offlienex;
                                 mp.id=modelA.id;
 
-                                print("P:${_periodoId}, NA:${_nombreActividad}, E:${_estado}, "
+                                print("P:$_periodoId, NA:$_nombreActividad, E:$_estado, "
                                     "F:${_fecha.value.text} HI:${_horai.value.text} MT:${_minToler.value.text} "
                                     "La: ${currentPosition!.latitude}, Lo:${currentPosition!.longitude} "
-                                    "U:${prefs.getString('usernameLogin')} EV:${_evaluar}");
+                                    "U:${prefs.getString('usernameLogin')} EV:$_evaluar");
 
                                 var api = await Provider.of<ActividadApi>(
                                     context,
                                     listen: false)
                                     .updateActividad(TokenUtil.TOKEN,modelA.id.toInt(), mp);
                                 print("ver: ${api.toJson()}");
-                                if (api.toJson()!=null) {
-                                  Navigator.pop(context, () {
-                                    setState(() {});
-                                  });
-                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationHomeScreen()));
-                                }
-                              } else {
+                                Navigator.pop(context, () {
+                                  setState(() {});
+                                });
+                                // Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationHomeScreen()));
+                                                            } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
@@ -201,10 +197,10 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
     );
   }
 
-  Widget _buildDatoEntero(Function obtValor, String _dato,String label) {
+  Widget _buildDatoEntero(Function obtValor, String dato,String label) {
     return TextFormField(
       decoration: InputDecoration(labelText: label),
-      initialValue: _dato,
+      initialValue: dato,
       keyboardType: TextInputType.number,
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -218,10 +214,10 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
     );
   }
 
-  Widget _buildDatoCadena(Function obtValor,String _dato, String label) {
+  Widget _buildDatoCadena(Function obtValor,String dato, String label) {
     return TextFormField(
       decoration: InputDecoration(labelText: label),
-      initialValue: _dato,
+      initialValue: dato,
       keyboardType: TextInputType.text,
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -235,11 +231,11 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
     );
   }
 
-  Widget _buildDatoLista(Function obtValor,_dato, String label, List<dynamic> listaDato) {
+  Widget _buildDatoLista(Function obtValor,dato, String label, List<dynamic> listaDato) {
     return DropDownFormField(
       titleText: label,
       hintText: 'Seleccione',
-      value: _dato,
+      value: dato,
       onSaved: (value) {
         setState(() {
           obtValor(value);
@@ -305,7 +301,7 @@ class _ActividadFormEditState extends State<ActividadFormEdit> {
       setState(() {
         selectedTime = picked;
         //obtValor("${selectedTime!.hour}:${selectedTime!.minute}");
-        obtValor("${(selectedTime!.hour)<10?"0"+(selectedTime!.hour).toString():selectedTime!.hour}:${(selectedTime!.minute)<10?"0"+(selectedTime!.minute).toString():selectedTime!.minute}:00");
+        obtValor("${(selectedTime!.hour)<10?"0${selectedTime!.hour}":selectedTime!.hour}:${(selectedTime!.minute)<10?"0${selectedTime!.minute}":selectedTime!.minute}:00");
         //_horai.text="${selectedTime!.hour}:${selectedTime!.minute}";
       });
     }

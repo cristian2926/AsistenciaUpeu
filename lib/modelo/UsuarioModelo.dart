@@ -45,17 +45,17 @@ class UsuarioModelo {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['nombres'] = nombres;
-    _data['apellidos'] = apellidos;
-    _data['correo'] = correo;
-    _data['password'] = password;
-    _data['token'] = token;
-    _data['dni'] = dni;
-    _data['perfilPrin'] = perfilPrin;
-    _data['estado'] = estado;
-    _data['offlinex'] = offlinex;
-    return _data;
+    final data = <String, dynamic>{};
+    data['nombres'] = nombres;
+    data['apellidos'] = apellidos;
+    data['correo'] = correo;
+    data['password'] = password;
+    data['token'] = token;
+    data['dni'] = dni;
+    data['perfilPrin'] = perfilPrin;
+    data['estado'] = estado;
+    data['offlinex'] = offlinex;
+    return data;
   }
 }
 
@@ -96,16 +96,16 @@ class RespUsuarioModelo {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['id'] = id;
-    _data['nombres'] = nombres;
-    _data['apellidos'] = apellidos;
-    _data['correo'] = correo;
-    _data['token'] = token;
-    _data['dni'] = dni;
-    _data['perfilPrin'] = perfilPrin;
-    _data['estado'] = estado;
-    _data['offlinex'] = offlinex;
-    return _data;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['nombres'] = nombres;
+    data['apellidos'] = apellidos;
+    data['correo'] = correo;
+    data['token'] = token;
+    data['dni'] = dni;
+    data['perfilPrin'] = perfilPrin;
+    data['estado'] = estado;
+    data['offlinex'] = offlinex;
+    return data;
   }
 }

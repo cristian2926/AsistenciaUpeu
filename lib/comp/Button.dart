@@ -12,15 +12,15 @@ class Button extends StatelessWidget {
       onTap: ()=> onTap(),
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: 2),
+        padding: const EdgeInsets.symmetric(vertical: 2),
         child: SizedBox(
           child: ElevatedButton(
             onPressed: () {
               onTap();
             },
             child: Text(
-              label!,
-              style: TextStyle(fontSize: 20),
+              label,
+              style: const TextStyle(fontSize: 20),
             ),
           )
 

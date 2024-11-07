@@ -7,6 +7,8 @@ import 'package:asistencia_upeu/ui/help_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
+  const NavigationHomeScreen({super.key});
+
   @override
   _NavigationHomeScreenState createState() => _NavigationHomeScreenState();
 }
@@ -18,7 +20,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
   @override
   void initState() {
     drawerIndex = DrawerIndex.HOME;
-    screenView = HelpScreen();
+    screenView = const HelpScreen();
     super.initState();
   }
 
@@ -34,13 +36,13 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
           backgroundColor: AppTheme.themeData.primaryColor,
           //appBar: CustomAppBar(accionx: accion as Function),
           body: DrawerUserController(
-            screenIndex: drawerIndex!!,
+            screenIndex: drawerIndex!,
             drawerWidth: MediaQuery.of(context).size.width * 0.75,
             onDrawerCall: (DrawerIndex drawerIndexdata) {
               changeIndex(drawerIndexdata);
               //callback from drawer for replace screen as user need with passing DrawerIndex(Enum index)
             },
-            screenView: screenView!!,
+            screenView: screenView!,
             drawerIsOpen: (bool ) {  },
             //we replace screen view as we need on navigate starting screens like MyHomePage, HelpScreen, FeedbackScreen, etc...
           ),
@@ -54,15 +56,19 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       drawerIndex = drawerIndexdata;
       if (drawerIndex == DrawerIndex.HOME) {
         setState(() {
-          screenView = HelpScreen(); //MainPersona()
+          screenView = const HelpScreen(); //MainPersona()
         });
       } else if (drawerIndex == DrawerIndex.FeedBack) {
         setState(() {
-          screenView = MainActividad();
+          screenView = const MainActividad();
         });
       } else if (drawerIndex == DrawerIndex.Help) {
         setState(() {
-          screenView = MainActividadB();
+          screenView = const MainActividadB();
+        });
+      } else if (drawerIndex == DrawerIndex.Invite) {
+        setState(() {
+          screenView = const MainActividadB();
         });
       }else{
         //do in your way.....

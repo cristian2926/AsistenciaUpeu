@@ -5,7 +5,7 @@ import 'package:asistencia_upeu/theme/AppTheme.dart';
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   CustomAppBar({ super.key,
    required this.accionx
-  }) : preferredSize = Size.fromHeight(50.0);
+  }) : preferredSize = const Size.fromHeight(50.0);
   Function accionx;
   @override
   final Size preferredSize;

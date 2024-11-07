@@ -1,23 +1,29 @@
-import 'package:asistencia_upeu/apis/actividad_api.dart';
+
+import 'package:asistencia_upeu/bloc/actividadfire/actividad_bloc.dart';
 import 'package:asistencia_upeu/comp/DropDownFormField.dart';
 import 'package:asistencia_upeu/modelo/ActividadModelo.dart';
-import 'package:asistencia_upeu/util/TokenUtil.dart';
+import 'package:asistencia_upeu/modelo/ActividadModeloFire.dart';
 import 'package:checkbox_grouped/checkbox_grouped.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ActividadForm extends StatefulWidget {
-  const ActividadForm({super.key});
+class ActividadFormEdit extends StatefulWidget {
+  ActividadModeloFire modelA;
+
+  ActividadFormEdit({super.key, required this.modelA});
 
   @override
-  _ActividadFormState createState() => _ActividadFormState();
+  _ActividadFormEditState createState() => _ActividadFormEditState(modelA: modelA);
 }
 
-class _ActividadFormState extends State<ActividadForm> {
+class _ActividadFormEditState extends State<ActividadFormEdit> {
+  ActividadModeloFire modelA;
+  _ActividadFormEditState({required this.modelA}):super();
 
+  late final int _periodoId=0;
   late String _nombreActividad="";
 
   final TextEditingController _fecha = TextEditingController();
@@ -46,7 +52,6 @@ class _ActividadFormState extends State<ActividadForm> {
     {'value': 'SI', 'display': 'SI'},
     {'value': 'NO', 'display': 'NO'}
   ];
-
   late String _materiales="";
   late String _validarInsc="NO";
   late String _asisSubAct="NO";
@@ -56,6 +61,10 @@ class _ActividadFormState extends State<ActividadForm> {
   @override
   void initState() {
     super.initState();
+    print(modelA.fecha);
+    _fecha.text=modelA.fecha;
+    _horai.text=modelA.horai;
+    _minToler.text=modelA.minToler;
     print("ver: ${lista.map((item) => item['value']).toList()}");
     print("verv: ${lista.map((item) => item['display']).toList()}");
   }
@@ -77,6 +86,7 @@ class _ActividadFormState extends State<ActividadForm> {
   void capturaEvaluar(valor){ _evaluar=valor;}
   TextEditingController capMinToler(){return _minToler;}
   TextEditingController capHorai(){return _horai;}
+
   void capturaMateriales(valor){ _materiales=valor;}
   void capturaValidarIns(valor){ _validarInsc=valor;}
   void capturaAsisSubAct(valor){ _asisSubAct=valor;}
@@ -91,7 +101,7 @@ class _ActividadFormState extends State<ActividadForm> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text("Form. Reg. Actividad"),
+        title: const Text("Form. Reg. Actividad B"),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
@@ -105,18 +115,17 @@ class _ActividadFormState extends State<ActividadForm> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
 
-                    _buildDatoCadena(capturaNombreAct, "Nombre Actividad:"),
+                    _buildDatoCadena(capturaNombreAct, modelA.nombreActividad, "Nombre Actividad:"),
                     _buildDatoFecha(capturaFecha,"F.Evento"),
                     _buildDatoHora(capturaHorai, capHorai,  "H.Inicio:"),
                     _buildDatoHora(capturaMinToler, capMinToler, "M.Tolerancia:"),
-                    _buildDatoLista(capturaEstado,_estado, "Estado:", lista),
-                    _buildDatoLista(capturaEvaluar,_evaluar, "Evaluar:", listaEva),
-                    _buildDatoCadena(capturaMateriales,"Materiales:"),
-                    _buildDatoLista(capturaValidarIns,_validarInsc, "V.Inscripción:", listaEva),
-                    _buildDatoLista(capturaAsisSubAct,_asisSubAct, "Tiene Sub.Actividad:", listaEva),
-                    _buildDatoLista(capturaEntSal,_entSal, "R. Entrada/Salida:", listaEva),
-                    _buildDatoLista(capturaOfflinex,_offlienex, "F. Offline:", listaEva),
-
+                    _buildDatoLista(capturaEstado,_estado=modelA.estado, "Estado:", lista),
+                    _buildDatoLista(capturaEvaluar,_evaluar=modelA.evaluar, "Evaluar:", listaEva),
+                    _buildDatoCadena(capturaMateriales,modelA.mater,"Materiales:"),
+                    _buildDatoLista(capturaValidarIns,_validarInsc=modelA.validInsc, "V.Inscripción:", listaEva),
+                    _buildDatoLista(capturaAsisSubAct,_asisSubAct=modelA.asisSubact, "Tiene Sub.Actividad:", listaEva),
+                    _buildDatoLista(capturaEntSal,_entSal=modelA.entsal, "R. Entrada/Salida:", listaEva),
+                    _buildDatoLista(capturaOfflinex,_offlienex=modelA.offlinex, "F. Offline:", listaEva),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: Row(
@@ -136,9 +145,8 @@ class _ActividadFormState extends State<ActividadForm> {
                                   ),
                                 );
                                 _formKey.currentState!.save();
-                                ActividadModelo mp = ActividadModelo.unlaunched();
+                                ActividadModeloFire mp = ActividadModeloFire.unlaunched();
                                 mp.nombreActividad = _nombreActividad;
-                                //print(DateFormat('yyyy-MM-dd').format(currentTime));
                                 mp.fecha=DateFormat('yyyy-MM-dd').format(DateTime.parse(_fecha.value.text));
                                 mp.horai=_horai.value.text;
                                 mp.minToler=_minToler.value.text;
@@ -148,28 +156,34 @@ class _ActividadFormState extends State<ActividadForm> {
                                 mp.evaluar=_evaluar;
                                 final prefs= await SharedPreferences.getInstance();
                                 mp.userCreate = "${prefs.getString('usernameLogin')}";
-                                mp.asistenciaxs=[];
                                 mp.mater=_materiales;
                                 mp.validInsc=_validarInsc;
                                 mp.asisSubact=_asisSubAct;
                                 mp.entsal=_entSal;
                                 mp.offlinex=_offlienex;
+                                mp.id=modelA.id;
 
-                                print("NA:$_nombreActividad, E:$_estado, "
+                                print("P:$_periodoId, NA:$_nombreActividad, E:$_estado, "
                                     "F:${_fecha.value.text} HI:${_horai.value.text} MT:${_minToler.value.text} "
                                     "La: ${currentPosition!.latitude}, Lo:${currentPosition!.longitude} "
                                     "U:${prefs.getString('usernameLogin')} EV:$_evaluar");
 
-                                var api = await Provider.of<ActividadApi>(
+                                /*var api = await Provider.of<ActividadApi>(
                                     context,
                                     listen: false)
-                                    .crearActividad(TokenUtil.TOKEN,mp);
+                                    .updateActividad(TokenUtil.TOKEN,modelA.id.toInt(), mp);
                                 print("ver: ${api.toJson()}");
+                                if (api.toJson()!=null) {
+                                  Navigator.pop(context, () {
+                                    setState(() {});
+                                  });
+                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationHomeScreen()));
+                                }*/
+                                BlocProvider.of<ActividadBloc>(context).add(UpdateActividadEvent(mp));
                                 Navigator.pop(context, () {
-                                  setState(() {});
+                                  //setState(() {});
                                 });
-                                // Navigator.push(context, MaterialPageRoute(builder: (context) => NavigationHomeScreen()));
-                                                            } else {
+                              } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
@@ -189,9 +203,10 @@ class _ActividadFormState extends State<ActividadForm> {
     );
   }
 
-  Widget _buildDatoEntero(Function obtValor, String label) {
+  Widget _buildDatoEntero(Function obtValor, String dato,String label) {
     return TextFormField(
       decoration: InputDecoration(labelText: label),
+      initialValue: dato,
       keyboardType: TextInputType.number,
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -205,9 +220,10 @@ class _ActividadFormState extends State<ActividadForm> {
     );
   }
 
-  Widget _buildDatoCadena(Function obtValor, String label) {
+  Widget _buildDatoCadena(Function obtValor,String dato, String label) {
     return TextFormField(
       decoration: InputDecoration(labelText: label),
+      initialValue: dato,
       keyboardType: TextInputType.text,
       validator: (String? value) {
         if (value!.isEmpty) {
@@ -290,6 +306,7 @@ class _ActividadFormState extends State<ActividadForm> {
     if (picked != null && picked != selectedTime) {
       setState(() {
         selectedTime = picked;
+        //obtValor("${selectedTime!.hour}:${selectedTime!.minute}");
         obtValor("${(selectedTime!.hour)<10?"0${selectedTime!.hour}":selectedTime!.hour}:${(selectedTime!.minute)<10?"0${selectedTime!.minute}":selectedTime!.minute}:00");
         //_horai.text="${selectedTime!.hour}:${selectedTime!.minute}";
       });

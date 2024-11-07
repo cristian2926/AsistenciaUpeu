@@ -2,7 +2,6 @@
 import 'package:asistencia_upeu/theme/AppTheme.dart';
 import 'package:asistencia_upeu/login/login_google.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:asistencia_upeu/login/sign_in.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -33,7 +32,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
       DrawerList(
         index: DrawerIndex.HOME,
         labelName: 'Principal',
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
       ),
       DrawerList(
         index: DrawerIndex.FeedBack,
@@ -44,22 +43,22 @@ class _HomeDrawerState extends State<HomeDrawer> {
       DrawerList(
         index: DrawerIndex.Help,
         labelName: 'Actividad Bloc',
-        icon: Icon(Icons.help),
+        icon: const Icon(Icons.help),
       ),
       DrawerList(
         index: DrawerIndex.Invite,
         labelName: 'Actividad Bloc Fire',
-        icon: Icon(Icons.group),
+        icon: const Icon(Icons.group),
       ),
       DrawerList(
         index: DrawerIndex.Share,
         labelName: 'Materiales',
-        icon: Icon(Icons.share),
+        icon: const Icon(Icons.share),
       ),
       DrawerList(
         index: DrawerIndex.About,
         labelName: 'Información',
-        icon: Icon(Icons.info),
+        icon: const Icon(Icons.info),
       ),
     ];
   }
@@ -96,12 +95,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                   .value /
                               360),
                           child: Center(
-                            child:  imageUrl==""? CircleAvatar(
+                            child:  imageUrl==""? const CircleAvatar(
                               backgroundImage: AssetImage('assets/imagen/man-icon.png'),
                               radius: 40,
                               backgroundColor: Colors.transparent,
                             ): CircleAvatar(
-                              backgroundImage: NetworkImage(imageUrl!!),
+                              backgroundImage: NetworkImage(imageUrl),
                               radius: 40,
                               backgroundColor: Colors.transparent,
                             ),
@@ -113,9 +112,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 4),
                     child: Text(
-                      (name==null?"Anonimo":name)! + (" ") + (email==null?"Anomim":email)!,
+                      (name ?? "Anonimo") + (" ") + (email ?? "Anomim"),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         //color: AppTheme.grey,
                         fontSize: 18,
@@ -129,7 +128,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
           const SizedBox(
             height: 4,
           ),
-          Divider(
+          const Divider(
             height: 1,
             //color: AppTheme.grey.withOpacity(0.6),
           ),
@@ -143,14 +142,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
               },
             ),
           ),
-          Divider(
+          const Divider(
             height: 1,
             //color: AppTheme.grey.withOpacity(0.6),
           ),
           Column(
             children: <Widget>[
               ListTile(
-                title: Text(
+                title: const Text(
                   'Salir',
                   style: TextStyle(
                     //fontFamily: AppTheme.fontName,
@@ -160,7 +159,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   ),
                   textAlign: TextAlign.left,
                 ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.power_settings_new,
                   color: Colors.red,
                 ),
@@ -182,7 +181,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
     signOutGoogle();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) {
-      return LoginPage();
+      return const LoginPage();
     }), ModalRoute.withName('/'));
     print('Doing Something...'); // Print to console.
   }
@@ -202,7 +201,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
               child: Row(
                 children: <Widget>[
-                  Container(
+                  const SizedBox(
                     width: 6.0,
                     height: 46.0,
 
@@ -211,7 +210,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     padding: EdgeInsets.all(4.0),
                   ),
                   listData.isAssetsImage
-                      ? Container(
+                      ? SizedBox(
                           width: 24,
                           height: 24,
                           child: Image.asset(listData.imageName,
@@ -253,14 +252,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             0.0,
                             0.0),
                         child: Padding(
-                          padding: EdgeInsets.only(top: 8, bottom: 8),
+                          padding: const EdgeInsets.only(top: 8, bottom: 8),
                           child: Container(
                             width:
                                 MediaQuery.of(context).size.width * 0.75 - 64,
                             height: 46,
                             decoration: BoxDecoration(
                               color: Colors.blue.withOpacity(0.2),
-                              borderRadius: new BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                 topLeft: Radius.circular(0),
                                 topRight: Radius.circular(28),
                                 bottomLeft: Radius.circular(0),

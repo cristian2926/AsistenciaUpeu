@@ -2,6 +2,7 @@ import 'dart:async';
 
 //import 'package:asistencia_app/apis/asistencia_api.dart';
 //import 'package:asistencia_app/modelo/AsistenciapaxModelo.dart';
+import 'package:asistencia_upeu/modelo/ActividadModeloFire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
@@ -9,7 +10,7 @@ import '../../modelo/ActividadModelo.dart';
 import 'package:geolocator/geolocator.dart';
 
 class MyAppQR extends StatefulWidget {
-  ActividadModelo modelA;
+  ActividadModeloFire modelA;
   MyAppQR({super.key, required this.modelA});
 
   @override
@@ -18,7 +19,7 @@ class MyAppQR extends StatefulWidget {
 
 class _MyAppState extends State<MyAppQR> {
 
-  ActividadModelo modelA;
+  ActividadModeloFire modelA;
   _MyAppState({required this.modelA}):super();
   String _scanBarcode = 'Unknown';
   Position? currentPosition;

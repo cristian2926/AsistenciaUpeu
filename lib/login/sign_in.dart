@@ -23,7 +23,6 @@ Future<String> signInWithGoogle() async {
 
   if (user != null) {
     // Checking if email and name is null
-    assert(user.email != null);
     assert(user.displayName != null);
     //assert(user.photoUrl != null);
 
@@ -41,7 +40,7 @@ Future<String> signInWithGoogle() async {
       backgroundColor: Colors.blue,
       textColor: Colors.white,
       fontSize: 16.0);
-  return null!!;
+  return null!;
 }
 
 Future<void> signOutGoogle() async {

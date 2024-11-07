@@ -14,8 +14,8 @@ class GenericModelo {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['deleted'] = deleted;
-    return _data;
+    final data = <String, dynamic>{};
+    data['deleted'] = deleted;
+    return data;
   }
 }

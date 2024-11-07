@@ -14,8 +14,8 @@ class DropDownFormField extends FormField<dynamic> {
   final EdgeInsets contentPadding;
 
   DropDownFormField(
-      {FormFieldSetter<dynamic>? onSaved,
-        FormFieldValidator<dynamic>? validator,
+      {super.key, super.onSaved,
+        super.validator,
         AutovalidateMode autovalidate = AutovalidateMode.disabled,
         this.titleText = 'Title',
         this.hintText = 'Select one option',
@@ -29,8 +29,6 @@ class DropDownFormField extends FormField<dynamic> {
         this.filled = true,
         this.contentPadding = const EdgeInsets.fromLTRB(12, 12, 8, 0)})
       : super(
-    onSaved: onSaved,
-    validator: validator,
     autovalidateMode: autovalidate,
     initialValue: value == '' ? null : value,
     builder: (FormFieldState<dynamic> state) {

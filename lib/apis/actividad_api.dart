@@ -1,9 +1,7 @@
 import 'package:asistencia_upeu/modelo/ActividadModelo.dart';
 import 'package:asistencia_upeu/modelo/GenericModelo.dart';
-import 'package:asistencia_upeu/modelo/UsuarioModelo.dart';
 import 'package:asistencia_upeu/util/UrlApi.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/retrofit.dart';

@@ -16,10 +16,11 @@ import 'package:asistencia_upeu/util/TokenUtil.dart';
 import '../help_screen.dart';
 import 'package:excel/excel.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MainActividad extends StatelessWidget {
+  const MainActividad({super.key});
+
   @override
   Widget build(BuildContext context) {
     /*return Provider<ActividadApi>(
@@ -41,13 +42,15 @@ class MainActividad extends StatelessWidget {
         themeMode: AppTheme.useLightMode ? ThemeMode.light : ThemeMode.dark,
         theme: AppTheme.themeDataLight,
         darkTheme: AppTheme.themeDataDark,
-        home: ActividadUI(),
+        home: const ActividadUI(),
       ),
     );
   }
 }
 
 class ActividadUI extends StatefulWidget {
+  const ActividadUI({super.key});
+
   @override
   _ActividadUIState createState() => _ActividadUIState();
 }
@@ -77,7 +80,7 @@ class _ActividadUIState extends State<ActividadUI> {
         personaXB = List.from(data);
       });
     });
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     setState(() {
       personaL = List.from(personaXB);
       _isLoading = false;
@@ -133,36 +136,36 @@ class _ActividadUIState extends State<ActividadUI> {
       theme: AppTheme.themeDataLight,
       darkTheme: AppTheme.themeDataDark,
       home: Scaffold(
-        appBar: new AppBar(
-          title: Text(
+        appBar: AppBar(
+          title: const Text(
             'Lista de Actividades',
           ),
           automaticallyImplyLeading: false,
           centerTitle: true,
           actions: <Widget>[
             Padding(
-              padding: EdgeInsets.only(right: 20.0),
+              padding: const EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
                   print("Si funciona");
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.search,
                   size: 26.0,
                 ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 20.0),
+              padding: const EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
                   print("Si funciona 2");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ActividadForm()),
+                    MaterialPageRoute(builder: (context) => const ActividadForm()),
                   ).then(onGoBack);
                 },
-                child: Icon(Icons.add_box_sharp),
+                child: const Icon(Icons.add_box_sharp),
               ),
             )
           ],
@@ -170,7 +173,7 @@ class _ActividadUIState extends State<ActividadUI> {
         backgroundColor: AppTheme.nearlyWhite,
 
 
-        body: _isLoading?Center(child: CircularProgressIndicator(),)
+        body: _isLoading?const Center(child: CircularProgressIndicator(),)
         :_buildListView(context),
 
 
@@ -195,7 +198,7 @@ class _ActividadUIState extends State<ActividadUI> {
       slivers: <Widget>[
         SliverList(
             delegate: SliverChildListDelegate([
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Padding(
@@ -227,7 +230,7 @@ class _ActividadUIState extends State<ActividadUI> {
             ),
           ),
 
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
@@ -271,7 +274,7 @@ class _ActividadUIState extends State<ActividadUI> {
                                               personax.estado == "A"
                                                   ? "Activo"
                                                   : "Desactivo",
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16),
                                             ),
@@ -287,13 +290,13 @@ class _ActividadUIState extends State<ActividadUI> {
                                             child: Text(
                                               //personax.asistenciaxs.isEmpty? personax.evaluar:personax.asistenciaxs.first.horaReg,
                                               personax.horai,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 16),
                                             ),
                                           ),
                                         ]),
-                                    leading: CircleAvatar(
+                                    leading: const CircleAvatar(
                                       backgroundImage: AssetImage(
                                           "assets/imagen/man-icon.png"),
                                     ),
@@ -309,12 +312,12 @@ class _ActividadUIState extends State<ActividadUI> {
                                               children: <Widget>[
                                                 Expanded(
                                                     child: IconButton(
-                                                        icon: Icon(Icons.edit),
+                                                        icon: const Icon(Icons.edit),
                                                         iconSize: 24,
                                                         padding:
                                                             EdgeInsets.zero,
                                                         constraints:
-                                                            BoxConstraints(),
+                                                            const BoxConstraints(),
                                                         onPressed: () {
                                                           Navigator.push(
                                                             context,
@@ -328,12 +331,12 @@ class _ActividadUIState extends State<ActividadUI> {
                                                 Expanded(
                                                     child: IconButton(
                                                         icon:
-                                                            Icon(Icons.delete),
+                                                            const Icon(Icons.delete),
                                                         iconSize: 24,
                                                         padding:
                                                             EdgeInsets.zero,
                                                         constraints:
-                                                            BoxConstraints(),
+                                                            const BoxConstraints(),
                                                         //color: AppTheme.themeData.colorScheme.inversePrimary,
                                                         onPressed: () {
                                                           showDialog(
@@ -344,9 +347,9 @@ class _ActividadUIState extends State<ActividadUI> {
                                                                   (BuildContext
                                                                       context) {
                                                                 return AlertDialog(
-                                                                  title: Text(
+                                                                  title: const Text(
                                                                       "Mensaje de confirmacion"),
-                                                                  content: Text(
+                                                                  content: const Text(
                                                                       "Desea Eliminar?"),
                                                                   actions: [
                                                                     FloatingActionButton(
@@ -399,10 +402,10 @@ class _ActividadUIState extends State<ActividadUI> {
                                               children: <Widget>[
                                                 Expanded(
                                                   child: IconButton(
-                                                    icon: Icon(Icons.qr_code),
+                                                    icon: const Icon(Icons.qr_code),
                                                     padding: EdgeInsets.zero,
                                                     constraints:
-                                                        BoxConstraints(),
+                                                        const BoxConstraints(),
                                                     onPressed: () {
                                                       /*Navigator.push(
                                                         context,
@@ -421,18 +424,18 @@ class _ActividadUIState extends State<ActividadUI> {
                                                   builder:
                                                       (BuildContext context) {
                                                     return IconButton(
-                                                      icon: Icon(Icons
+                                                      icon: const Icon(Icons
                                                           .send_and_archive_sharp),
                                                       padding: EdgeInsets.zero,
                                                       constraints:
-                                                          BoxConstraints(),
+                                                          const BoxConstraints(),
                                                       onPressed: () async {
                                               //          List<AsistenciaxRespModelo> api=await Provider.of<AsistenciaxApi>(context, listen: false).getAsistenciapa(TokenUtil.TOKEN);
                                             //exportAsistenciaToExcel(api);
                                             await Future.delayed(const Duration(seconds: 1));
                                             print("OJO:${imagePaths.isEmpty}");
                                             text="Exportando Asistencias";
-                                            if(!text.isEmpty && !imagePaths.isEmpty){
+                                            if(text.isNotEmpty && imagePaths.isNotEmpty){
                                               _onShare(context);
                                               Fluttertoast.showToast(
                                                   msg: "Exporto correctamente",
@@ -481,7 +484,7 @@ class _ActividadUIState extends State<ActividadUI> {
     return BottomAppBar(
       //color: AppTheme.themeData.colorScheme.primaryContainer,
 
-      shape: CircularNotchedRectangle(),
+      shape: const CircularNotchedRectangle(),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -494,7 +497,7 @@ class _ActividadUIState extends State<ActividadUI> {
                 selectedPosition = 0;
               });
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return HelpScreen();
+                return const HelpScreen();
               }));
             },
           ),
@@ -539,16 +542,16 @@ class _ActividadUIState extends State<ActividadUI> {
         onPressed: () {
           key.currentState?.closeFABs();
         },
-        heroTag: Text("Image"),
+        heroTag: const Text("Image"),
         tooltip: 'Add',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
 
   Widget image() {
     return Container(
-      child: FloatingActionButton(
+      child: const FloatingActionButton(
         onPressed: null,
         heroTag: Text("Image"),
         tooltip: 'Image',
@@ -559,7 +562,7 @@ class _ActividadUIState extends State<ActividadUI> {
 
   Widget inbox() {
     return Container(
-      child: FloatingActionButton(
+      child: const FloatingActionButton(
         onPressed: null,
         heroTag: Text("Inbox"),
         tooltip: 'Inbox',

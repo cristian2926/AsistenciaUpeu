@@ -13,6 +13,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainLogin extends StatelessWidget{
+  const MainLogin({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +22,27 @@ class MainLogin extends StatelessWidget{
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primaryColor: Colors.blue),
-        home: LoginPage(),
+        home: const LoginPage(),
       ),
     );
   }
 }
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _isLoggedIn = false;
+  final bool _isLoggedIn = false;
   bool modLocal = false;
-  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
 
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _controllerUser = new TextEditingController();
-  TextEditingController _controllerPass = new TextEditingController();
+  final TextEditingController _controllerUser = TextEditingController();
+  final TextEditingController _controllerPass = TextEditingController();
   var tokenx;
   bool passwordVisible=false;
   @override
@@ -58,12 +62,12 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Image(
+                const Image(
                     image: AssetImage("assets/imagen/logo_upeu2.png"),
                     height: 180.0),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 _buildForm(),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 /*checkbox(
                     title: "Fire:",
                     initValue: modLocal,
@@ -101,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
                 hintText: "Usuario",
                 labelText: "Usuario",
@@ -114,15 +118,15 @@ class _LoginPageState extends State<LoginPage> {
               controller: _controllerUser,
               textInputAction: TextInputAction.done,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             TextField(
               obscureText: passwordVisible,
               decoration: InputDecoration(
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
                 hintText: "Password",
                 labelText: "Password",
                 helperText:"La contraseña debe contener un carácter especial",
-                helperStyle:TextStyle(color:Colors.green),
+                helperStyle:const TextStyle(color:Colors.green),
                 suffixIcon: IconButton(
                   icon: Icon(passwordVisible
                       ? Icons.visibility
@@ -143,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
               textInputAction: TextInputAction.done,
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
             Button  (
@@ -160,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                   final user=UsuarioModelo.login(_controllerUser.text, _controllerPass.text);
                   bool ingreso=false;
                   api.login(user).then((value){
-                    tokenx="Bearer "+value.token;
+                    tokenx="Bearer ${value.token}";
                     prefs.setString("token", tokenx);
                     TokenUtil.TOKEN=tokenx;
                     ingreso=true;
@@ -169,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
-                            return NavigationHomeScreen();
+                            return const NavigationHomeScreen();
                           },
                         ),
                       );
@@ -196,63 +200,35 @@ class _LoginPageState extends State<LoginPage> {
         final prefs= await SharedPreferences.getInstance();
 
         signInWithGoogle().then((result) async{
-          if (result != null)  {
-            print("Entro Google");
-            print("Entro Google: $modLocal");
-            TokenUtil.localx=modLocal;
-            if(!TokenUtil.localx){
-            final api=Provider.of<UsuarioApi>(context,listen: false);
-            final user=UsuarioModelo.login("davidmp@upeu.edu.pe", "Da12345*");
-            api.login(user).then((value){
-              tokenx="Bearer "+value.token;
-              prefs.setString("token", tokenx);
-              TokenUtil.TOKEN=tokenx;
-              prefs.setString("usernameLogin", "${email==null?"":email}");
-            }).catchError((onError){
-              print(onError.toString());
-            });
-            }
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return NavigationHomeScreen();
-                },
-              ),
-            );
-          }else{
-            print("Errro!!");
-            Visibility(
-              visible: error.isNotEmpty,
-              child: MaterialBanner(
-                backgroundColor:
-                Theme.of(context).colorScheme.error,
-                content: SelectableText(error!),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        error = '';
-                      });
-                    },
-                    child: const Text(
-                      'dismiss',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-                contentTextStyle:
-                const TextStyle(color: Colors.white),
-                padding: const EdgeInsets.all(10),
-              ),
-            );
+          print("Entro Google");
+          print("Entro Google: $modLocal");
+          TokenUtil.localx=modLocal;
+          if(!TokenUtil.localx){
+          final api=Provider.of<UsuarioApi>(context,listen: false);
+          final user=UsuarioModelo.login("davidmp@upeu.edu.pe", "Da12345*");
+          api.login(user).then((value){
+            tokenx="Bearer ${value.token}";
+            prefs.setString("token", tokenx);
+            TokenUtil.TOKEN=tokenx;
+            prefs.setString("usernameLogin", email ?? "");
+          }).catchError((onError){
+            print(onError.toString());
+          });
           }
-        });
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return const NavigationHomeScreen();
+              },
+            ),
+          );
+                });
 
 
       },
 
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+      child: const Padding(
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -260,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
             Image(
                 image: AssetImage("assets/imagen/man-icon.png"), height: 35.0),
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10),
               child: Text(
                 'Ingresar Google',
                 style: TextStyle(

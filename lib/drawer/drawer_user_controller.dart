@@ -1,7 +1,6 @@
 import 'package:asistencia_upeu/theme/AppTheme.dart';
 import 'package:asistencia_upeu/drawer/home_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:toast/toast.dart';
 
 class DrawerUserController extends StatefulWidget {
   const DrawerUserController({
@@ -45,8 +44,8 @@ class _DrawerUserControllerState extends State<DrawerUserController>
         duration: const Duration(milliseconds: 0), curve: Curves.fastOutSlowIn);
     scrollController =
         ScrollController(initialScrollOffset: widget.drawerWidth);
-    scrollController!!
-      ..addListener(() {
+    scrollController!
+      .addListener(() {
         if (scrollController!.offset <= 0) {
           if (scrolloffset != 1.0) {
             setState(() {
@@ -79,7 +78,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
               curve: Curves.fastOutSlowIn);
         }
       });
-    WidgetsBinding.instance?.addPostFrameCallback((_) => getInitState());
+    WidgetsBinding.instance.addPostFrameCallback((_) => getInitState());
     super.initState();
 
   }
@@ -122,9 +121,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                       transform: Matrix4.translationValues(
                           scrollController!.offset, 0.0, 0.0),
                       child: HomeDrawer(
-                        screenIndex: widget.screenIndex == null
-                            ? DrawerIndex.HOME
-                            : widget.screenIndex,
+                        screenIndex: widget.screenIndex ?? DrawerIndex.HOME,
                         iconAnimationController: iconAnimationController!,
                         callBackIndex: (DrawerIndex indexType) {
                           onDrawerClick();
@@ -142,7 +139,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                 height: MediaQuery.of(context).size.height,
                 //full-screen Width with widget.screenView
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     //color: AppTheme.white,
                     boxShadow: <BoxShadow>[
                       BoxShadow(
@@ -183,9 +180,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                                   AppBar().preferredSize.height),
                               child: Center(
                                 // if you use your own menu view UI you add form initialization
-                                child: widget.menuView != null
-                                    ? widget.menuView
-                                    : AnimatedIcon(
+                                child: widget.menuView ?? AnimatedIcon(
                                         color: AppTheme.colorMenu,
                                         icon: widget.animatedIconData ?? AnimatedIcons.arrow_menu,
                                         progress: iconAnimationController!),

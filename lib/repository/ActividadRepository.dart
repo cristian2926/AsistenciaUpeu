@@ -11,9 +11,9 @@ class Actividadrepository with ConexionDBL{
   ActividadApi? actividadApi;
 
   Actividadrepository(){
-    Dio _dio=Dio();
-    _dio.options.headers["Content-Type"]="application/json";
-    actividadApi=ActividadApi(_dio);
+    Dio dio=Dio();
+    dio.options.headers["Content-Type"]="application/json";
+    actividadApi=ActividadApi(dio);
   }
 
   Future<List<ActividadModelo>> getActividad() async{
@@ -22,14 +22,14 @@ class Actividadrepository with ConexionDBL{
       //return await actividadApi!.getActividad(TokenUtil.TOKEN).then((value) => value.data);
       var dato=await actividadApi!.getActividad(TokenUtil.TOKEN).then((value) => value);
       dato.forEach((el) async{
-        await actividaddDao.insertActividad(new ActividadModelo(id: el.id,
+        await actividaddDao.insertActividad(ActividadModelo(id: el.id,
           nombreActividad: el.nombreActividad, fecha: el.fecha, horai: el.horai, minToler: el.minToler,
           latitud: el.latitud, longitud: el.longitud, estado: el.estado, evaluar: el.evaluar, userCreate: el.userCreate,
           mater: el.mater,validInsc: el.validInsc,asisSubact: el.asisSubact,entsal: el.entsal,offlinex: el.offlinex,
         ));
       });
       //final result = await actividaddDao.findActividadById(18);
-      return await dato;
+      return dato;
       //return await actividaddDao.findAllActidad();
     }else{
       return await actividaddDao.findAllActidad();}
@@ -69,7 +69,7 @@ class Actividadrepository with ConexionDBL{
       actividad.id=idx;
       final actividaddDaox= (await conetion()).actividadDao;
       actividaddDaox.insertActividad(actividad);
-      return await actividad;
+      return actividad;
     }
   }
 

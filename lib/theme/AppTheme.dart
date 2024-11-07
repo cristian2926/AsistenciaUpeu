@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class AppTheme {
   AppTheme._();
   static  List<Color> colorOptions = [
-    Color(0xff99ff05),
-    Color(0xff6750a4),
+    const Color(0xff99ff05),
+    const Color(0xff6750a4),
     Colors.blue,
     Colors.teal,
     Colors.green,
@@ -47,7 +47,7 @@ class AppTheme {
 
   static const Color grey = Color(0xFF3A5160);
   static const Color nearlyWhite = Color(0xFFFEFEFE);
-  static Color colorMenu=Color(0xFF3A5160);
+  static Color colorMenu=const Color(0xFF3A5160);
 
   static ThemeData themeDataLight=ThemeData(useMaterial3: useMaterial3,
       colorScheme: AppTheme.colorOptionsShemeL[AppTheme.colorSelected]);
@@ -72,11 +72,9 @@ class AppTheme {
     errorContainer: Color(0xFFFFDAD6),
     onError: Color(0xFFFFFFFF),
     onErrorContainer: Color(0xFF410002),
-    background: Color(0xFFFDFDF6),
-    onBackground: Color(0xFF1A1C18),
     surface: Color(0xFFFDFDF6),
     onSurface: Color(0xFF1A1C18),
-    surfaceVariant: Color(0xFFDFE4D7),
+    surfaceContainerHighest: Color(0xFFDFE4D7),
     onSurfaceVariant: Color(0xFF43483F),
     outline: Color(0xFF73796E),
     onInverseSurface: Color(0xFFF1F1EA),
@@ -106,11 +104,9 @@ class AppTheme {
     errorContainer: Color(0xFF93000A),
     onError: Color(0xFF690005),
     onErrorContainer: Color(0xFFFFDAD6),
-    background: Color(0xFF1A1C18),
-    onBackground: Color(0xFFE2E3DC),
     surface: Color(0xFF1A1C18),
     onSurface: Color(0xFFE2E3DC),
-    surfaceVariant: Color(0xFF43483F),
+    surfaceContainerHighest: Color(0xFF43483F),
     onSurfaceVariant: Color(0xFFC3C8BC),
     outline: Color(0xFF8D9387),
     onInverseSurface: Color(0xFF1A1C18),
@@ -141,11 +137,9 @@ class AppTheme {
     errorContainer: Color(0xFFFFDAD6),
     onError: Color(0xFFFFFFFF),
     onErrorContainer: Color(0xFF410002),
-    background: Color(0xFFFDFCFF),
-    onBackground: Color(0xFF1A1C1E),
     surface: Color(0xFFFDFCFF),
     onSurface: Color(0xFF1A1C1E),
-    surfaceVariant: Color(0xFFDFE3EB),
+    surfaceContainerHighest: Color(0xFFDFE3EB),
     onSurfaceVariant: Color(0xFF42474E),
     outline: Color(0xFF73777F),
     onInverseSurface: Color(0xFFF1F0F4),
@@ -175,11 +169,9 @@ class AppTheme {
     errorContainer: Color(0xFF93000A),
     onError: Color(0xFF690005),
     onErrorContainer: Color(0xFFFFDAD6),
-    background: Color(0xFF1A1C1E),
-    onBackground: Color(0xFFE2E2E6),
     surface: Color(0xFF1A1C1E),
     onSurface: Color(0xFFE2E2E6),
-    surfaceVariant: Color(0xFF42474E),
+    surfaceContainerHighest: Color(0xFF42474E),
     onSurfaceVariant: Color(0xFFC2C7CF),
     outline: Color(0xFF8C9199),
     onInverseSurface: Color(0xFF1A1C1E),
